@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>    
+
+    <title>Feelin' Hot Hot Hot</title>
+  </head>
+  <body>
+  
+    <div class="jumbotron hero-image">
+      <h1 class="display-4">Feelin' Hot Hot Hot!</h1>
+      <p class="lead">Lead introducing the project.</p>
+      <hr class="my-4" width="50%">
+      <p>Paragraph explaining data sources and how to navigate around the website.</p>
+        <select id="selVisual" onchange="optionChanged(this.value)">
+          <option value="visual1">Visual 1</option>
+          <option value="visual2">Visual 2</option>
+          <option value="visual3">Visual 3</option>
+        </select>
+    </div>
+  
+    <div class="container" id="visualizations">
+        <h1 class="display-4">KILLER</h1>
+        <h1 class="display-4">VISUALIZATION</h1>
+        <h1 class="display-4">HERE</h1>
+    </div>
+      
+
+    <div id="footer">
+      <p>Footer - Data Attribution??</p>
+    </div>
+    <!-- API key -->
+    <script type="text/javascript" src="static/js/config.js"></script>
+    <!-- My JS -->
+    <script type="text/javascript" src="static/js/logic.js"></script>
+    <!-- Optional Bootstrap JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>
