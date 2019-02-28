@@ -2,9 +2,10 @@
 var queryUrl = "";
 
 // Perform a GET request to the query URL
-d3.json(queryUrl, function(data) {
+d3.json(`/data`, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
-  createFeatures(data.features);
+  // createFeatures(data.features);
+  console.log(data);
 });
 
 function createFeatures(temperatureData) {
