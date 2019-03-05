@@ -16,15 +16,16 @@ db = MySQLdb.connect(host="localhost",
                      db="World_Climate")        
 
 # create cursor object
-cur = db.cursor()
+cur1 = db.cursor()
+cur2 = db.cursor()
 
 # Use all the SQL you like
-cur.execute("SELECT * FROM usa")
-cur.execute("SELECT * FROM global_temp")
+cur1.execute("SELECT * FROM usa")
+cur2.execute("SELECT * FROM global_temp")
 
 # print all the first cell of all the rows
-data_usa = cur.fetchall()
-data_global = cur.fetchall()
+data_usa = cur1.fetchall()
+data_global = cur2.fetchall()
 
 #     print(row[0])
 #     print(row[1])
