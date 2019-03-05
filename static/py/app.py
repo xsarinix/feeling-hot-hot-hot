@@ -20,11 +20,11 @@ cur = db.cursor()
 
 # Use all the SQL you like
 cur.execute("SELECT * FROM usa")
-# cur.execute("SELECT * FROM global")
+cur.execute("SELECT * FROM global_temp")
 
 # print all the first cell of all the rows
 data_usa = cur.fetchall()
-# data_global = cur.fetchall()
+data_global = cur.fetchall()
 
 #     print(row[0])
 #     print(row[1])
@@ -58,22 +58,22 @@ def sample_usa_data():
     print(usa_list)
     return jsonify(usa_list)
 
-# @app.route("/global_data/")
-# def sample_usa_data():
-#     """Return the globa_data for a given sample."""
+@app.route("/global_data/")
+def sample_global_data():
+    """Return the global_data for a given sample."""
 
-#     # Create a dictionary entry for each row of usa_data information
-#     global_list=[]
-#     for result in data_global:
-#         sample_data = {}
-#         sample_data["YEAR"] = result[0]
-#         sample_data["COUNTRY"] = result[1]
-#         sample_data["Average_Temperature"] = result[2]
-#         sample_data["LATITUDE"] = result[3]
-#         sample_data["LONGITUDE"] = result[4]
-#         global_list.append(sample_data)
+    # Create a dictionary entry for each row of usa_data information
+    global_list=[]
+    for result in data_global:
+        sample_data = {}
+        sample_data["YEAR"] = result[0]
+        sample_data["COUNTRY"] = result[1]
+        sample_data["LATITUDE"] = result[2]
+        sample_data["LONGITUDE"] = result[3]
+        sample_data["Average_Temperature"] = result[4]
+        global_list.append(sample_data)
 
-#     print(global_list)
-#     return jsonify(global_list)
+    print(global_list)
+    return jsonify(global_list)
 if __name__ == "__main__":
     app.run()
