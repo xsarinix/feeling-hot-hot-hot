@@ -1,17 +1,13 @@
 import os
-
+import MySQLdb
+import csv
+import json
 import pandas as pd
 import numpy as np
-
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
-
 from flask import Flask, jsonify, render_template
-from flask_sqlalchemy import SQLAlchemy
-
-import gunicorn
+import pymongo
+from pymongo import MongoClient
+from config import password
 
 app = Flask(__name__)
 
@@ -19,68 +15,92 @@ app = Flask(__name__)
 #################################################
 # Database Setup
 #################################################
+db = MySQLdb.connect(host="localhost",    
+                     user="root",         
+                     passwd=password,  
+                     db="World_Climate")
 
+# create cursor object
+cur = db.cursor()
+
+# Use all the SQL you like
+# cur.execute("SELECT * FROM usa WHERE Year in (1930, 1970, 2010, 2018)")
+cur.execute("SELECT * FROM usa")
+
+# print all the first cell of all the rows
+data_usa = cur.fetchall()
+
+# def import_content(filepath):
+#     mng_client = pymongo.MongoClient('localhost', 27017)
+#     mng_db = mng_client['TEMP']
+
+#     if filepath == 'resources/percent_change.csv':
+#         collection = 'percent_change'
+#         db_cm = mng_db[collection]
+
+#     elif filepath == 'resources/TempByCountry03-13.csv':
+#         collection = 'TempByCountry'
+#         db_cm = mng_db[collection]
+       
+#     # elif filepath == 'resources/    .csv':
+#     #     collection = ''
+#     #     db_cm = mng_db[collection]
+    
+#     # elif filepath == 'resources/    .csv':
+#     #     collection = ''
+#     #     db_cm = mng_db[collection]
+    
+#     # elif filepath == 'resources/    .csv':
+#     #     collection = ''
+#     #     db_cm = mng_db[collection]
+    
+#     # elif filepath == 'resources/    .csv':
+#     #     collection = ''
+#     #     db_cm = mng_db[collection]
+
+#     cdir = os.path.dirname(__file__)
+#     file_res = os.path.join(cdir, filepath)
+
+#     data = pd.read_csv(file_res, encoding = 'unicode_escape')
+#     data_json = json.loads(data.to_json(orient='records'))
+#     db_cm.remove()
+#     db_cm.insert(data_json)
 
 @app.route("/")
 def index():
     """Return the homepage."""
     return render_template("index.html")
 
-@app.route("/data")
+@app.route("/test_data")
 def names():
-    climate_csv="resources/small_CSV.csv"
+    climate_csv="resources/annual_USALandTempsByCity.csv"
     climate_df=pd.read_csv(climate_csv)
     climate_dict=climate_df.to_dict()
     return jsonify(climate_dict)
 
+@app.route("/usa_data/")
+def sample_usa_data():
+    """Return the usa_data for a given sample."""
 
-# @app.route("/metadata/<sample>")
-# def sample_metadata(sample):
-#     """Return the MetaData for a given sample."""
-#     sel = [
-#         Samples_Metadata.sample,
-#         Samples_Metadata.ETHNICITY,
-#         Samples_Metadata.GENDER,
-#         Samples_Metadata.AGE,
-#         Samples_Metadata.LOCATION,
-#         Samples_Metadata.BBTYPE,
-#         Samples_Metadata.WFREQ,
-#     ]
+    # Create a dictionary entry for each row of usa_data information
+    usa_list = {}
+    city_dict = {}
+    for result in data_usa:
+        usa_list.setdefault("year", []).append(result[0])
+        usa_list.setdefault("city", []).append(result[1])
+        usa_list.setdefault("country", []).append(result[2])
+        usa_list.setdefault("Average_Temperature", []).append(result[3])
+        usa_list.setdefault("latitude", []).append(result[4])
+        usa_list.setdefault("longitude", []).append(result[5])
 
-#     results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
-
-#     # Create a dictionary entry for each row of metadata information
-#     sample_metadata = {}
-#     for result in results:
-#         sample_metadata["Sample"] = result[0]
-#         sample_metadata["Ethnicity"] = result[1]
-#         sample_metadata["Gender"] = result[2]
-#         sample_metadata["Age"] = result[3]
-#         sample_metadata["Location"] = result[4]
-#         sample_metadata["Belly Button Type"] = result[5]
-#         sample_metadata["Wash Frequency"] = result[6]
-
-#     print(sample_metadata)
-#     return jsonify(sample_metadata)
-
-
-# @app.route("/samples/<sample>")
-# def samples(sample):
-#     """Return `otu_ids`, `otu_labels`,and `sample_values`."""
-#     stmt = db.session.query(Samples).statement
-#     df = pd.read_sql_query(stmt, db.session.bind)
-
-#     # Filter the data based on the sample number and
-#     # only keep rows with values above 1
-#     sample_data = df.loc[df[sample] > 1, ["otu_id", "otu_label", sample]]
-#     # Format the data to send as json
-#     data = {
-#         "otu_ids": sample_data.otu_id.values.tolist(),
-#         "sample_values": sample_data[sample].values.tolist(),
-#         "otu_labels": sample_data.otu_label.tolist(),
-#     }
-#     return jsonify(data)
+    #print(usa_list)
+    return jsonify(usa_list)
 
 
 if __name__ == "__main__":
+    # filepaths = ['resources/percent_change.csv', 'resources/TempByCountry03-13.csv']
+
+    # for filepath in filepaths:
+    #     import_content(filepath)
+        
     app.run()

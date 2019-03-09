@@ -1,6 +1,7 @@
 body {
     padding-bottom: 80px;
     margin: 0;
+    text-align: center;
 }
   
 #map {
@@ -11,6 +12,10 @@ body {
 html {
     position: relative;
     min-height: 100%;
+}
+
+#visualizations {
+    text-align: center;
 }
 
 #footer {
@@ -41,3 +46,68 @@ html {
     padding: 10px;
 }
 
+div.option1 {
+    width: 120px;
+    float: left;
+}
+
+div.option2 {
+    width: 350px;
+    margin-left: 0px;
+}
+
+.land {
+    fill: rgb(117, 87, 57);
+    stroke-opacity: 1;
+}
+  
+.countries path {
+stroke: rgb(80, 64, 39);  
+stroke-linejoin: round;
+stroke-width:.5;
+fill: rgb(117, 87, 57);
+opacity: .1;
+}
+
+.countries path:hover {
+fill-opacity:.1;
+stroke-width:1;
+opacity: 1;
+}
+
+
+.graticule {
+fill: none;
+stroke: black;
+stroke-width:.5;
+opacity:.2;
+}
+
+.labels {
+    font: 6px sans-serif;
+    fill: black;
+    opacity: .5;
+}
+
+.noclicks {
+pointer-events:none;
+}
+
+.point {
+opacity:.6;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.line {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+    font-size: 2px;
+}
